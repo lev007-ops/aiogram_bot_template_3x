@@ -21,7 +21,9 @@ class TgBot:
 
 @dataclass
 class Miscellaneous:
-    other_params: str = None
+    bot_commands = [
+        ('start', 'Главное меню')
+    ]
 
 
 @dataclass

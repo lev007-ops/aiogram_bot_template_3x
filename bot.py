@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, types
 from aiogram.dispatcher.fsm.storage.memory import MemoryStorage
 from aiogram.dispatcher.fsm.storage.redis import RedisStorage
 from aioredis import Redis
@@ -14,9 +14,14 @@ logger = logging.getLogger(__name__)
 peewee_logger = logging.getLogger('peewee')
 
 
-async def on_startup(bot: Bot):
+async def on_startup(bot: Bot, dp: Dispatcher):
     # код для выполнения при запуске
-    pass
+    config = load_config(".env")
+    await dp.bot.set_my_commands(
+            [
+                types.BotCommand(c[0], c[1]) for c in config.misc.bot_commands
+            ]
+        )
 
 
 def register_global_middlewares(dp: Dispatcher, config):
