@@ -24,6 +24,8 @@ class Miscellaneous:
     bot_commands = [
         ('start', 'Главное меню')
     ]
+    redis_host: str
+    enable_peewee_logging: bool
 
 
 @dataclass
@@ -50,5 +52,8 @@ def load_config(path: str = None):
             database=env.str('DB_NAME'),
             port=env.int('DB_PORT')
         ),
-        misc=Miscellaneous()
+        misc=Miscellaneous(
+            redis_host=env.str('REDIS_HOST'),
+            enable_peewee_logging=env.bool('ENABLE_PEEWEE_LOGGING')
+        )
     )
